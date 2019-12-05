@@ -91,8 +91,6 @@ class RoomViewController: UIViewController {
             
         }
         
-        
-        
         // TextFieldの値をクリアする
         textField.text = ""
     }
@@ -116,6 +114,13 @@ extension RoomViewController: UITableViewDelegate, UITableViewDataSource {
         cell.textLabel?.text = room.name
         
         return cell
+        
+    }
+    
+    // セルがクリックされた時
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        
+        performSegue(withIdentifier: "toRoom", sender: nil)
         
     }
     
