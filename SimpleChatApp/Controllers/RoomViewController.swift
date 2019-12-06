@@ -113,6 +113,9 @@ extension RoomViewController: UITableViewDelegate, UITableViewDataSource {
         
         cell.textLabel?.text = room.name
         
+        // 矢印を表示
+        cell.accessoryType = .disclosureIndicator
+        
         return cell
         
     }
@@ -120,7 +123,25 @@ extension RoomViewController: UITableViewDelegate, UITableViewDataSource {
     // セルがクリックされた時
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         
-        performSegue(withIdentifier: "toRoom", sender: nil)
+        // 今回クリックされたRoomを取得
+        let room = rooms[indexPath.row]
+        
+        // セルの選択状態（グレー色になるやつ）を解除
+        tableView.deselectRow(at: indexPath, animated: true)
+        
+        // 画面遷移
+        performSegue(withIdentifier: "toRoom", sender: room.documentId)
+        
+    }
+    
+    // 画面遷移の準備
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        
+        if segue.identifier == "toRoom" {
+            
+            let chatVC = segue.destination as! ChatViewController
+            chatVC.documentId = sender as! String
+        }
         
     }
     
